@@ -12,6 +12,7 @@ public class Hookshot : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector3 hookTarget;
     private SpringJoint joint;
+    private bool isHooking;
 
     
 
@@ -22,11 +23,14 @@ public class Hookshot : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        DrawRope();
+        RotateHookShooter();
+
+        if (Input.GetMouseButtonDown(0) && !isHooking)
         {
             StartHook();
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonDown(0) && isHooking)
         {
             StopHook();
         }
@@ -44,18 +48,41 @@ public class Hookshot : MonoBehaviour
 
             float distanceToTarget = Vector3.Distance(player.position, hookTarget);
 
+            // Experiment with these values below
+
             joint.maxDistance = distanceToTarget * 0.8f;
             joint.minDistance = distanceToTarget * 0.25f;
 
-            // Experiment with these values
-            joint.spring = 4.5f;
-            joint.damper = 7f;
+            joint.spring = 10f; // controls pull/push
+            joint.damper = 2f;
             joint.massScale = 4.5f;
+
+            lineRenderer.positionCount = 2;
+            isHooking = true;
+        }
+    }
+
+    private void DrawRope()
+    {
+        if (joint)
+        {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, hookTarget);
         }
     }
 
     private void StopHook()
     {
+        lineRenderer.positionCount = 0;
+        Destroy(joint);
+        isHooking = false;
+    }
 
+    private void RotateHookShooter()
+    {
+        if (isHooking)
+        {
+            transform.LookAt(hookTarget);
+        }
     }
 }
