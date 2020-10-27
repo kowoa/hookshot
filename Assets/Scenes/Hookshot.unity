@@ -903,7 +903,10 @@ MonoBehaviour:
   playerCamera: {fileID: 963194228}
   player: {fileID: 1953431812}
   target: {fileID: 916485604}
+  button: 99
   maxDistance: 100
+  hookSpeed: 20
+  hookMode: 0
 --- !u!120 &1151868366
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1330,7 +1333,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &2085605972
 GameObject:
