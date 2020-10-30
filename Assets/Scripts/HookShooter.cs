@@ -6,12 +6,12 @@ using UnityEngine;
 // TO TWEAK HOOK ROPE PHYSICS, GO TO SPAWNJOINT() AND EXPERIMENT WITH VALUES
 
 [RequireComponent(typeof(LineRenderer))]
-public class Hookshot : MonoBehaviour
+public class HookShooter : MonoBehaviour
 {
     public Transform playerCamera, player, target;
     public KeyCode button;
     public float maxDistance = 100f; // maximum distance the hook can shoot out
-    public float hookSpeed = 20f;
+    public float hookSpeed = 20f; // speed at which hook travels
 
     public enum HookMode
     {
@@ -26,7 +26,7 @@ public class Hookshot : MonoBehaviour
     private bool isHooked = false;
     private bool shotHook = false;
     private Vector3 currentTargetDestination;
-    private Vector3 newTargetDestination; // used to shoot out hook without destroying current joint
+    private Vector3 newTargetDestination; // used to shoot out hook without destroying current joint (just in case)
 
     private void Start()
     {
